@@ -2,7 +2,7 @@
 
     \begin{enumerate}
         \item What is the poverty gap? What is the drawback of poverty head 
-        count ratio. What is the advantage of Poverty gap over the headcount 
+        count ratio? What is the advantage of poverty gap over the headcount 
         ratio?
         \item Consider a country in which 20 percent of the population live on 
         20 cents per day, 15 percent live on 30 cents per day, 15 percent live 
@@ -17,5 +17,85 @@
         severity) change in graph (a), (b), (c) between situation 1 (black 
         line) and situation 2 (blue line)?
 '    \end{enumerate}
+
+    \begin{solution}
+    
+        \begin{enumerate}
+            \item The poverty gap measures the intensity of poverty by 
+                calculating the mean shortfall of the total population from 
+                the poverty line, expressed as a ratio with the poverty line. 
+                The drawback of the headcount ratio, the percentage of the 
+                population living below the poverty line, is that it does not 
+                account for the intensity of poverty among those who are below 
+                the poverty line, only the incidence of it. The advantage of 
+                the poverty gap over the headcount ratio is that it provides 
+                a more comprehensive measure of poverty by considering both 
+                the incidence and intensity of poverty.
+            \item The poverty headcount ratio is 80\%. The poverty gap is 
+                \[
+                    \begin{aligned}
+                        P_1 &= \frac{1}{N} \sum_{i=1}^{q} \left( 
+                            \frac{z - y_i}{z} \right) = \frac{1}{100} \Bigg(
+                            20 \times \frac{1.00 - 0.20}{1.00} + 15 \times 
+                            \frac{1.00 - 0.30}{1.00} \\
+                            &+ 15 \times \frac{1.00 - 0.50}{1.00} + 10 \times 
+                            \frac{1.00 - 0.70}{1.00} + 20 
+                            \times \frac{1.00 - 0.90}{1.00} \Bigg) \\
+                            &= 0.195.
+                    \end{aligned}
+                \]
+                The poverty severity is 
+                \[
+                    \begin{aligned}
+                        P_2 &= \frac{1}{N} \sum_{i=1}^{q} \left( 
+                            \frac{z - y_i}{z} \right)^2 = \frac{1}{100} \Bigg(
+                            20 \times \left( \frac{1.00 - 0.20}{1.00} \right)^2
+                            + 15 \times \left( \frac{1.00 - 0.30}{1.00} \right)^2 \\
+                            &+ 15 \times \left( \frac{1.00 - 0.50}{1.00} \right)^2
+                            + 10 \times \left( \frac{1.00 - 0.70}{1.00} \right)^2
+                            + 20 \times \left( \frac{1.00 - 0.90}{1.00} \right)^2
+                        \Bigg) \\
+                        &= 0.0595.
+                    \end{aligned}
+                \]
+            \item Consider a country with 100 people and a poverty line of 
+                \$1.00. Situation 1: 20 people live on \$0.50, 10 people live 
+                on \$0.75, and 70 people live on \$1.50. Situation 2: 20 people 
+                live on \$0.25, 10 people live on \$0.75, and 70 people live on 
+                \$1.50. In both situations, the headcount ratio ($P_0$) is 30\% 
+                (30 people are below the poverty line). However, the poverty 
+                gap ($P_1$) and poverty severity ($P_2$) change due to the 
+                different income levels of the poor.
+            \item In graph (a), the blue line lies above the black line at all
+                fractions of households and rises above the poverty line earlier
+                as well. This indicates that the headcount ratio ($P_0$) has
+                decreased, as fewer households are below the poverty line. The
+                poverty gap ($P_1$) has also decreased, as the area between the
+                blue line and the poverty line is smaller than that between the
+                black line and the poverty line. The poverty severity ($P_2$)
+                has decreased as well, as the blue line is closer to the poverty
+                line than the black line, indicating that the poorest households
+                are less poor in situation 2 compared to situation 1.
+
+                In graph (b), the blue line intersects the poverty line at the
+                same point as the black line, but is higher than the black line
+                at all fractions of households before this point. Thereafter, it
+                follows the same path as the black line. This indicates that the
+                headcount ratio ($P_0$) remains unchanged, as the same number of
+                households are below the poverty line. However, the poverty gap
+                ($P_1$) has decreased, as the area between the blue line and the
+                poverty line is smaller than that between the black line and the
+                poverty line. The poverty severity ($P_2$) has also decreased,
+                as the blue line is closer to the poverty line than the black
+                line, indicating that the poorest households are less poor in
+                situation 2 compared to situation 1.
+
+                In graph (c), the areas of A and B are equal, and the poverty
+                gap and headcount ration remain unchanged. However, the blue
+                line bumps up earlier than the black line so the the poverty
+                severity is lower. 
+        \end{enumerate}
+
+    \end{solution}
 
 \end{homeworkProblem}

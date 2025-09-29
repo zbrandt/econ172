@@ -48,4 +48,74 @@
         \item[(e)] How would you summarize these results?
     \end{itemize}
 
+    \begin{solution}
+        
+        \begin{itemize}
+            \item[(a)] The regression equation for column (3) is:
+                \[
+                    Y_{ivd} = \alpha_0 + \alpha_1 \text{Treatment}_{v} + 
+                    \alpha_2 \text{Village wealth index}_{iv} + 
+                    \alpha_3 \left( \text{Treatment}_{v} \times 
+                    \text{VWI}_{iv} \right) + \varepsilon_{ivd}
+                \]
+                The variable of interest is $\text{Treatment}_v$, and the
+                coefficient is $\alpha_1 = 280.1$.
+            \item[(b)] Column (1) shows that the treatment effect on monthly
+                revenues is significant at the 1\% level, with a coefficient
+                of 180.3. This indicates that, on average, business owners in
+                treatment villages have monthly revenues that are \$180.3
+                higher than those in control villages. Column (2) shows that
+                the treatment effect on monthly profits is only significant at
+                the 10\% level, with a coefficient of 22.5. This suggests that
+                business owners in treatment villages have monthly profits that
+                are \$22.5 higher than those in control villages, but the effect
+                is less robust than for revenues.
+            \item[(c)] The 95\% confidence interval for the treatment effect in
+                column (1) is approximately (65.4, 295.2), calculated as
+                $180.3 \pm 1.96 \times 58.6$. The 95\% confidence interval for
+                the treatment effect in column (2) is approximately (–1.8, 46.8),
+                calculated as $22.5 \pm 1.96 \times 12.4$. For the second 
+                confidence interval, since it includes zero, we cannot be confident
+                that the treatment effect is different from zero at the 95\% level.
+            \item[(d)] The regression equation for column (3) is:
+                \[
+                    Y_{ivd} = \alpha_0 + \alpha_1 \text{Treatment}_{v} + 
+                    \alpha_2 \text{Village wealth index}_{iv} + 
+                    \alpha_3 \left( \text{Treatment}_{v} \times 
+                    \text{VWI}_{iv} \right) + \varepsilon_{ivd}.
+                \]
+                $\alpha_1 = 280.1$ represents the treatment effect on
+                monthly revenues for business owners in villages with an
+                average wealth index (VWI = 0). $\alpha_2 = 130.8$ indicates
+                that for each one standard deviation increase in the village
+                wealth index, monthly revenues increase by \$130.8 on average,
+                holding treatment status constant. $\alpha_3 = -105.3$ suggests
+                that the treatment effect decreases by \$105.3 for each one
+                standard deviation increase in the village wealth index. This
+                implies that the treatment effect is larger in poorer villages
+                (lower VWI) and smaller in wealthier villages (higher VWI). \\
+
+                The regression equation for column (4) is:
+                \[
+                    Y_{ivd} = \alpha_0 + \alpha_1 \text{Treatment}_{v} + 
+                    \alpha_2 \text{Above median business assets}_{iv} +
+                    \alpha_3 \left( \text{Treatment}_{v} \times 
+                    \text{Above-median}_{iv} \right) + 
+                    \varepsilon_{ivd}.
+                \]
+                $\alpha_1 = 240.4$ represents the treatment effect on
+                monthly revenues for business owners in villages with above-median
+                business assets. $\alpha_2 = 110.5$ indicates that for each one
+                standard deviation increase in the above-median business assets,
+                monthly revenues increase by \$130.8 on average, holding treatment
+                status constant. $\alpha_3 = -68.3$ suggests that the treatment
+                effect decreases by \$68.3 for each one standard deviation increase
+                in the above-median business assets. This implies that the treatment
+                effect is larger in villages with lower above-median business assets
+                and smaller in villages with higher above-median business assets.
+
+        \end{itemize}
+
+    \end{solution}
+
 \end{homeworkProblem}
