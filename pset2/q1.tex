@@ -1,0 +1,84 @@
+\begin{homeworkProblem}{RCT}
+
+    This question uses an adapted dataset based on Muralidharan, Singh, and 
+    Ganimian’s (2019) paper \textit{Disrupting Education? Experimental 
+    Evidence on Technology-Aided Instruction in India}. The paper is available 
+    online and the replication data is available on ICPSR. Download the 
+    adapted dataset from bCourses.
+
+    This project evaluated the impact of a center-based and technology-aided 
+    after-school educational program on math and Hindi performance among middle
+    schoolers living in low-income neighborhoods in urban India. The 
+    technology-based curriculum was designed to be high-quality, adaptive, 
+    and engaging. Approximately 600 middle schoolers were recruited to 
+    participate in the study. Half of these recruited students were randomly
+    allocated by lottery to receive a voucher to participate in the program 
+    (treatment group), and half were not (control group). For the purposes of 
+    this question, you can assume that 100\% of those assigned to treatment 
+    participated in the program and that 0\% of those assigned to control 
+    participated in the program.
+
+    Below is a list of the variables included in the dataset, with a brief 
+    description of each. Note that BL refers to versions of variables 
+    collected at baseline (collected before the program began) while EL refers 
+    to variables collected at endline (collected at the conclusion of the 
+    program).
+
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{ll}
+            \toprule
+            \textbf{Variable} & \textbf{Description} \\
+            \midrule
+            student\_id & Identification numbers that uniquely identify students \\
+            student\_age & Age of the student (collected at baseline) \\
+            student\_female & Indicator (0/1) for whether the student is female \\
+            student\_grade & Grade of the student (collected at baseline) \\
+            treatment & Indicator (0/1) for treatment status of the student \\
+            BL\_math\_percent, EL\_math\_percent & Math score in percent correct \\
+            BL\_hindi\_percent, EL\_hindi\_percent & Hindi score in percent correct \\
+            BL\_ses\_index, EL\_ses\_index & Household wealth index \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \begin{enumerate}
+        \item Import the data and generate a table of summary statistics. What 
+            is the range of ages and grade levels within this sample? What are 
+            average scores for math and Hindi at baseline? At endline?
+
+        \item Next you’ll check whether the treatment and control groups are 
+            balanced in terms of each of the following variables: (1) age, (2) 
+            sex, (3) household wealth index at baseline, (4) math scores at 
+            baseline, and (5) Hindi scores at baseline. (Hint: To do this, 
+            you’ll run a separate regression for each of these five variables. 
+            Use \texttt{stargazer} or other preferable command to output the 
+            tables.) Before you code up any regressions, write down the 
+            regression you plan to run for at least one of the variables. 
+            Which parameter represents the coefficient of interest? What do 
+            you expect the estimate of this parameter to be (positive, 
+            negative, zero) and why?
+
+        \item Use the \texttt{lm} command to run the regressions in R. Are 
+            there significant differences between the treatment and control 
+            groups for any of these five variables? What is the purpose of 
+            this exercise, and what are you able to conclude?
+
+        \item Next, you’ll estimate the impact of the treatment on math and 
+            Hindi scores at endline.
+
+        \begin{enumerate}
+            \item First, write the two regressions you will run to estimate 
+                these treatment effects. In words, what will each of these 
+                parameters capture?
+            \item Run the two regressions using the \texttt{lm} command and 
+                use the \texttt{stargazer} command to produce tables containing 
+                the results of these two regressions. Interpret your results. 
+                What is the effect of the treatment on each of math and Hindi 
+                scores? Are these estimated treatment effects statistically 
+                significant? Explain.
+        \end{enumerate}
+        
+    \end{enumerate}
+
+\end{homeworkProblem}

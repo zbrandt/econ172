@@ -1,0 +1,126 @@
+\begin{homeworkProblem}{Diff-in-Diff}
+    
+    We often study the effect of interventions on those who actually 
+    received treatment. However, it is possible that economic 
+    interventions can create positive externalities for non-recipient 
+    households, for instance, through market interactions or financial 
+    transfers between households. In this part of the problem set, we 
+    will estimate the spillover effects of a fictitious cash transfer 
+    program in a rural Tanzanian setting.
+
+    Starting in 2015, imagine that thousands of households in rural 
+    northern Tanzania received large cash transfers of roughly US 
+    \$1,000 from the international non-governmental organization 
+    GiveDirectly (GD). These cash transfers were targeted to relatively 
+    poor households within certain villages but not others. The cash 
+    grants were unconditional, and the amount is equivalent to more 
+    than 50\% of total annual income for many recipient households. GD 
+    expanded cash transfers in some villages and not others in a 
+    non-randomized fashion. Then in 2018, approximately three years 
+    after the distribution of the cash transfers, the households were 
+    surveyed and measures were collected on many economic, social and 
+    life outcomes, including household per capita income.
+
+    The goal of this question is to estimate the impact of these 
+    transfers on the households deemed to be too wealthy to be eligible 
+    for GD transfers. Comparisons will be made across these ineligible 
+    households in the "cash" villages (locations where poor households 
+    received cash transfers from GD) versus in control villages (where 
+    poor household did not receive GD transfers). Any effects on these 
+    ineligible households can be considered spillovers since none of 
+    them received cash transfers through the program.
+        
+    \begin{enumerate}
+        \item Discuss the econometric assumptions needed to make a 
+            difference-in-differences (DD) approach appropriate in the case 
+            of understanding the spillover impacts of cash transfers on 
+            household incomes.
+
+        \item Why is it important that we have access to data from both 
+            the baseline (pre-intervention) and endline (post-intervention) 
+            survey rounds?
+
+        \item How does the lack of randomization in the allocation of cash 
+            transfers across villages affect the estimation of treatment 
+            effects, and how might it lead to omitted variable bias?
+
+        \item Please download the data to be used in the analysis. The 
+            dataset \texttt{Ec172\_Fall25\_PS2Q2\_data.csv} is a partial 
+            extract of project data (although the actual data has been 
+            modified in various ways). Each observation (row) in the dataset 
+            represents one household in one time period.
+
+        All households in this problem set dataset are 
+        \textbf{ineligible} for the GD cash transfers (i.e., they are 
+        too wealthy to receive cash transfers). There are two 
+        observations for each household, one from the baseline survey 
+        (time=0) and one from the endline survey (time=1). Using the 
+        \texttt{lm.cluster} command, determine the average difference at 
+        baseline (time=0) between the households in villages where 
+        eligible households received cash transfers (\texttt{cash}=1) 
+        versus the households in control villages that did not receive 
+        transfers (\texttt{cash}=0) for each of the following two 
+        characteristics: household income per capita 
+        (\texttt{income\_pc}) and if the household has an elderly member 
+        (\texttt{elder}=1). Importantly, these characteristics were 
+        collected by the survey team in the baseline survey before the 
+        cash transfers were sent out. (Consider these two 
+        characteristics one by one, that is, you should run two separate 
+        regressions here.) Make sure to account for the correlation 
+        among households in the same village by ``clustering'' your 
+        standard errors by village (\texttt{village\_code}).
+
+        \textbf{Hint:} To cluster SEs we can use the 
+        \texttt{lm.cluster} command or the \texttt{feols} command. To use 
+        the \texttt{lm.cluster} command in R, first install the packages 
+        \texttt{miceadds} and \texttt{sandwich}, and then load them into 
+        your library. The \texttt{lm.cluster} command functions just like 
+        \texttt{lm}, but with the added option to specify a clustering 
+        variable.
+
+        For the \texttt{feols} command, install and load the 
+        \texttt{fixest} package. Clustering is specified at the end of 
+        the command using \texttt{, cluster ~ village\_code}. The syntax 
+        of \texttt{feols} is otherwise similar to \texttt{lm}, except 
+        that you do not include \texttt{formula =} before the regression 
+        equation.
+
+        \begin{enumerate}
+            \item Report the regression output for the two regressions 
+                mentioned above, and interpret the coefficients. Please 
+                also discuss the standard errors and t-statistics. Taken 
+                together, are ineligible households similar in cash 
+                villages versus control villages along these two 
+                dimensions? How does this finding inform the discussion of 
+                the validity of the difference-in-differences (DD) 
+                approach that you laid out above, if at all?
+            \item Carry out a difference-in-differences (DD) analysis 
+                estimating the spillover impact of GD cash transfers 
+                among ineligible households, where the outcome of interest 
+                is per capita income (\texttt{income\_pc}). You will need 
+                to use data from both time periods. Once again, make sure 
+                to account for the correlation among households in the 
+                same village by clustering by village 
+                (\texttt{village\_code}). 
+                
+                (Hint: recall that a DD analysis requires the inclusion 
+                of separate explanatory variables for post 
+                (\texttt{time}), treatment (\texttt{cash}), and an 
+                interaction between the two variables. Note you will need 
+                to create a new variable in your dataset for this 
+                interaction term.) 
+                
+                What is the spillover impact among ineligible households 
+                when poor households in their village receive large cash 
+                transfers? Is this effect significantly different from 
+                zero at 95\% confidence?
+            \item Discuss at least two reasons why cash transfers 
+                received by other households in one's village might 
+                generate spillover effects over time even among 
+                non-recipient households. Given these likely mechanisms, 
+                does the magnitude of the estimated effect in part (b) 
+                seem plausible? If not, why not?
+        \end{enumerate}
+    \end{enumerate}
+
+\end{homeworkProblem}
