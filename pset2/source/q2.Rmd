@@ -1,0 +1,22 @@
+---
+title: "q2"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(dplyr)
+library(fixest)
+library(stargazer)
+setwd("~/Documents/GitHub/econ172/pset2/source")
+df <- read.csv("../data/q2.csv", stringsAsFactors = TRUE)
+```
+
+```{r}
+df0 <- filter(df, time == 0)
+income <- feols(income_pc ~ cash, data = df0, cluster = ~village_code)
+elder <- feols(elder ~ cash, data = df0, cluster = ~village_code)
+summary(income)
+summary(elder)
+```

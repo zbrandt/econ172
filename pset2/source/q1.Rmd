@@ -1,0 +1,44 @@
+---
+title: "q1"
+output: html_document
+---
+
+```{r}
+install.packages("pacman")
+pacman::p_load(stargazer)
+```
+
+
+Set working directory and load the data file
+
+```{r}
+setwd("~/Documents/GitHub/econ172/pset2/source")
+q1data <- read.csv("../data/q1.csv", stringsAsFactors = TRUE)
+```
+
+Get summary statistics
+
+```{r}
+stargazer(q1data)
+```
+
+Check if variables balanced
+
+```{r}
+age <- lm(student_age ~ treatment, data = q1data)
+sex <- lm(student_female ~ treatment, data = q1data)
+wealth <- lm(BL_ses_index ~ treatment, data = q1data)
+math <- lm(BL_math_percent ~ treatment, data = q1data)
+hindi <- lm(BL_hindi_percent ~ treatment, data = q1data)
+
+stargazer(age, sex, wealth, math, hindi)
+```
+
+Estimate impact of the treatment on math and Hindi scores at endline
+
+```{r}
+math <- lm(EL_math_percent ~ treatment, data = q1data)
+hindi <- lm(EL_hindi_percent ~ treatment, data = q1data)
+
+stargazer(math, hindi)
+```

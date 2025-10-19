@@ -123,4 +123,81 @@
         \end{enumerate}
     \end{enumerate}
 
+    \begin{solution}
+        \begin{enumerate}
+            \item The econometric assumption needed to make a
+                difference-in-differences approach appropriate in this case of
+                estimating the spillover impact of cash transfers on household
+                income is the parallel trends assumption. That is, in the 
+                absence of the treatment, the treatment and control groups 
+                experience the same trend in outcomes over time. In this case,
+                that means that the ineligible households in ``cash'' villages
+                and control villages would have followed the same trend in 
+                household incomes if there had been no cash transfers to eligible
+                households in their respective villages. 
+            \item Access to data from both the baseline and endline survey
+                rounds is important because without baseline data, it is 
+                impossible to estimate the difference-in-differences effect. 
+                The treatment counterfactual trend is estimated using the 
+                baseline data, which is subtracted from the post-treatment,
+                endline data difference to isolate the treatment effect.
+            \item While without randomization, a difference-in-differences 
+                approach removes time-invariant omitted variable bias if the
+                trends are in parallel. However, if there are differences 
+                between the treatment and control group villages that determine
+                different growth trajectories in household income over time, then
+                the lack of randomization can lead to omitted variable bias.
+            \item \begin{enumerate}
+                \item The regression output for household income per capita on
+                    cash village status at baseline shows a coefficient of 
+                    4.061 with a standard error of 11.437, resulting in a 
+                    t-statistic of 0.355. This indicates that there is no 
+                    statistically significant difference in household income 
+                    per capita between ineligible households in cash villages
+                    and control villages at baseline.
+
+                    For the regression of having an elderly member on cash
+                    village status at baseline, the coefficient is -0.026 with
+                    a standard error of 0.024, yielding a t-statistic of -1.100.
+                    This suggests that there is a marginally significant 
+                    difference in the proportion of households with elderly
+                    members between cash and control villages at baseline.
+
+                    Taken together, these findings suggest that ineligible
+                    households are relatively similar in cash villages versus
+                    control villages along these two dimensions, which supports
+                    the validity of the difference-in-differences approach.
+                \item The difference-in-differences analysis estimating the
+                    spillover impact of GD cash transfers on per capita income
+                    yields a coefficient of 4.061 on cash village status with 
+                    a standard error of 11.438, resulting in a t-statistic of 
+                    0.355. This indicates that the spillover effect among 
+                    ineligible households is positive and statistically 
+                    significant at the 95\% confidence level. On the post 
+                    variable (time), the coefficient is 158.990 with a standard 
+                    error of 20.143, yielding a t-statistic of 7.893, 
+                    indicating a significant increase in income over time for 
+                    all households. The interaction term between cash village 
+                    status and time has a coefficient of 62.190 with a standard 
+                    error of 33.512, resulting in a t-statistic of 1.856. This
+                    suggests that the spillover effect of cash transfers on
+                    ineligible households is positive but not statistically
+                    significant at the 95\% confidence level.
+                
+                \item There are several reasons why cash transfers received by
+                    other households in one's village might generate spillover
+                    effects over time among non-recipient households. First,
+                    cash transfers can increase overall economic activity in 
+                    the village, leading to higher demand for goods and services that
+                    benefits non-recipient households. Second, cash transfers may
+                    lead to increased social interactions and sharing of resources
+                    among households, which can improve the economic well-being of
+                    non-recipient households. Given these mechanisms, the magnitude of the estimated effect
+                    in part (b) seems plausible, as the positive spillover effect aligns with the expected
+                    economic dynamics in the village following cash transfers
+                    to eligible households.
+            \end{enumerate}
+        \end{enumerate}
+    \end{solution}
+
 \end{homeworkProblem}
