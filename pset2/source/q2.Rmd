@@ -1,7 +1,6 @@
 ---
 title: "q2"
 output:
-  pdf_document: default
   html_document: default
 ---
 
@@ -9,14 +8,35 @@ output:
 library(dplyr)
 library(fixest)
 library(stargazer)
+
 setwd("~/Documents/GitHub/econ172/pset2/source")
 df <- read.csv("../data/q2.csv", stringsAsFactors = TRUE)
 ```
 
+
+Determine the average difference at baseline between the households in villages
+where eligible households received cash transfers versus the households in 
+control villages that did not receive transfers for household income per capita
+and if the household has an elderly member. 
+
 ```{r}
-df0 <- filter(df, time == 0)
-income <- feols(income_pc ~ cash, data = df0, cluster = ~village_code)
-elder <- feols(elder ~ cash, data = df0, cluster = ~village_code)
+baseline <- filter(df, time == 0)
+
+income <- feols(income_pc ~ cash, data = baseline, cluster = ~village_code)
+elder <- feols(elder ~ cash, data = baseline, cluster = ~village_code)
+
 summary(income)
 summary(elder)
+```
+
+
+Carry out a difference-in-differences analysis estimating the spillover impact
+of cash transfers among ineligible households 
+
+```{r}
+interaction <- mutate(df, cash_time = cash * time)
+
+DiD <- feols(income_pc ~ cash + time + cash_time, data = interaction, cluster = ~village_code)
+
+summary(DiD)
 ```

@@ -4,41 +4,39 @@ output: html_document
 ---
 
 ```{r}
-install.packages("pacman")
-pacman::p_load(stargazer)
-```
+library(stargazer)
 
-
-Set working directory and load the data file
-
-```{r}
 setwd("~/Documents/GitHub/econ172/pset2/source")
-q1data <- read.csv("../data/q1.csv", stringsAsFactors = TRUE)
 ```
 
-Get summary statistics
+
+Import the data and generate a table of summary statistics
 
 ```{r}
-stargazer(q1data)
+df <- read.csv("../data/q1.csv", stringsAsFactors = TRUE)
+
+stargazer(df)
 ```
 
-Check if variables balanced
+
+Check whether the treatment and control groups are balanced
 
 ```{r}
-age <- lm(student_age ~ treatment, data = q1data)
-sex <- lm(student_female ~ treatment, data = q1data)
-wealth <- lm(BL_ses_index ~ treatment, data = q1data)
-math <- lm(BL_math_percent ~ treatment, data = q1data)
-hindi <- lm(BL_hindi_percent ~ treatment, data = q1data)
+student_age <- lm(student_age ~ treatment, df)
+student_female <- lm(student_female ~ treatment, df)
+BL_ses_index <- lm(BL_ses_index ~ treatment, df)
+math <- lm(BL_math_percent ~ treatment, df)
+hindi <- lm(BL_hindi_percent ~ treatment, df)
 
-stargazer(age, sex, wealth, math, hindi)
+stargazer(student_age, student_female, BL_ses_index, math, hindi)
 ```
+
 
 Estimate impact of the treatment on math and Hindi scores at endline
 
 ```{r}
-math <- lm(EL_math_percent ~ treatment, data = q1data)
-hindi <- lm(EL_hindi_percent ~ treatment, data = q1data)
+math <- lm(EL_math_percent ~ treatment, df)
+hindi <- lm(EL_hindi_percent ~ treatment, df)
 
 stargazer(math, hindi)
 ```
