@@ -1,6 +1,6 @@
 ---
 title: "q1"
-output: html_document
+output: pdf_document
 ---
 
 ```{r}
@@ -25,10 +25,11 @@ Check whether the treatment and control groups are balanced
 student_age <- lm(student_age ~ treatment, df)
 student_female <- lm(student_female ~ treatment, df)
 BL_ses_index <- lm(BL_ses_index ~ treatment, df)
-math <- lm(BL_math_percent ~ treatment, df)
-hindi <- lm(BL_hindi_percent ~ treatment, df)
+BL_math_percent <- lm(BL_math_percent ~ treatment, df)
+BL_hindi_percent <- lm(BL_hindi_percent ~ treatment, df)
 
-stargazer(student_age, student_female, BL_ses_index, math, hindi)
+stargazer(student_age, student_female)
+stargazer(BL_ses_index, BL_math_percent, BL_hindi_percent)
 ```
 
 
