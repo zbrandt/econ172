@@ -133,8 +133,13 @@
                 experience the same trend in outcomes over time. In this case,
                 that means that the ineligible households in ``cash'' villages
                 and control villages would have followed the same trend in 
-                household incomes if there had been no cash transfers to eligible
-                households in their respective villages. 
+                household incomes if there had been no cash transfers to 
+                eligible households in their respective villages. This also
+                means that there are no other time-varying factors that 
+                differentially affect the treatment and control groups over 
+                time. However, time invariant differences between the groups 
+                are controlled for since the difference-in-differences approach 
+                will difference them out.
             \item Access to data from both the baseline and endline survey
                 rounds is important because without baseline data, it is 
                 impossible to estimate the difference-in-differences effect. 
@@ -143,10 +148,14 @@
                 endline data difference to isolate the treatment effect.
             \item While without randomization, a difference-in-differences 
                 approach removes time-invariant omitted variable bias if the
-                trends are in parallel. However, if there are differences 
+                trends are in parallel, if there are differences 
                 between the treatment and control group villages that determine
                 different growth trajectories in household income over time, then
                 the lack of randomization can lead to omitted variable bias.
+                This is because the difference-in-differences estimate would
+                attribute differences in growth trajectories to the treatment
+                effect, when in fact they are driven by these omitted variables,
+                which were left out of the regression and unobserved.
             \item \begin{enumerate}
                 \item The regression output for household income per capita on
                     cash village status at baseline shows a coefficient of 

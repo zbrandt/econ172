@@ -120,14 +120,15 @@
             \item To check whether the treatment and control groups are
                 balanced in terms of each of the variables age, sex, household
                 wealth at baseline, math scores at baseline, and Hindi scores
-                at baseline, I plan to run the following regression. 
+                at baseline, I plan to run the following regression, using the
+                variable \texttt{student\_age} as an example. 
                 \[
                     \text{student\_age}_i = \alpha + \beta \cdot \text{treatment}_i + \epsilon_i
                 \]
 
                 where $\beta$ represents the coefficient of interest, the
                 average difference in student\_age between the treatment and 
-                control groups. I expect the estimate of this paramter to be 
+                control groups. I expect the estimate of this parameter to be 
                 zero since the treatment and control groups should be balanced
                 in terms of this variable and the four others mentioned. 
 
@@ -168,7 +169,7 @@
 
                 There are no significant differences between the treatment and
                 control groups for any of these five variables, as all p-values
-                are above 0.05. The purpose of this exercise is to verify that
+                are above 0.1. The purpose of this exercise is to verify that
                 the random assignment of students to treatment and control groups
                 was successful in creating balanced groups. Since there are no
                 significant differences between the treatment and control groups
