@@ -87,7 +87,7 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     errors were estimated. Each regression takes the form:
                     \[
                     Y_i = \beta_0 + \beta_1 \cdot \text{treatment}_i + 
-                    \mathbf{X}_i'\boldsymbol{\gamma} + \epsilon_i
+                    \mathbf{X}_i^\top\boldsymbol{\gamma} + \epsilon_i
                     \]
                     where $Y_i$ is the dependent variable, $\text{treatment}_i$ 
                     is the deworming treatment indicator, and $\mathbf{X}_i$ 
@@ -122,27 +122,23 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     variables and treatment coefficients are highlighted with 
                     red rectangles.
                 
-                \item[(ii)] \textbf{Interpretation of treatment effects:}
-                
-                \textbf{Total years enrolled in school (totyrs\_enrolled):} 
-                The treatment coefficient is 0.293 with a p-value of 0.043 
-                (statistically significant at the 5\% level). This means that 
-                students in schools that received the deworming treatment 
-                were enrolled in school for approximately 0.29 additional 
-                years (about 3.5 months) compared to students in control 
-                schools, holding all other factors constant. This represents 
-                a meaningful increase in educational attainment attributable 
-                to the deworming program.
-                
-                \textbf{Passed primary school entrance exam 
-                (passed\_primary\_exam):} The treatment coefficient is 0.051 
-                with a p-value of 0.101 (not statistically significant at the 
-                10\% level). While the point estimate suggests that treated 
-                students were 5.1 percentage points more likely to pass the 
-                primary school entrance exam, this effect is not statistically 
-                distinguishable from zero at conventional significance levels. 
-                We cannot conclude with confidence that the deworming 
-                treatment had an effect on exam passage rates.
+                \item[(ii)] The treatment coefficient on totyrs\_enrolled is 
+                    0.293 with a p-value of 0.043 (statistically significant at
+                    the 5\% level). This means that students in schools that 
+                    received the deworming treatment were enrolled in school for 
+                    approximately 0.29 additional years compared to students in 
+                    control schools, holding all other factors constant. This 
+                    represents an increase in educational attainment due
+                    to the deworming program.
+
+                    The treatment coefficient on passed\_primary\_exam is 0.051 
+                    with a p-value of 0.101 (not statistically significant at 
+                    the 10\% level). While the point estimate suggests that 
+                    treated students were 5.1 percentage points more likely to 
+                    pass the primary school entrance exam, this effect is not 
+                    statistically distinguishable from zero. We cannot conclude 
+                    with confidence that the deworming treatment had an effect 
+                    on exam passage rates.
             \end{itemize}
             
             \item[b)]
@@ -153,7 +149,7 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     \[
                     Y_i = \beta_0 + \beta_1 \cdot \text{treatment}_i + 
                     \beta_2 \cdot Z_i + \beta_3 \cdot 
-                    (\text{treatment}_i \times Z_i) + \mathbf{X}_i'
+                    (\text{treatment}_i \times Z_i) + \mathbf{X}_i^\top
                     \boldsymbol{\gamma} + \epsilon_i
                     \]
                     where $Z_i$ is either female\_baseline or BMI, and 
@@ -167,17 +163,10 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     \hline \\[-1.8ex] 
                     & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
                     \cline{2-4} 
-                    % \\[-1.8ex] & totyrs\_enrolled & passed\_primary\_exam & total\_hours\\ 
                     \\[-1.8ex] & (1) & (2) & (3)\\ 
                     \hline \\[-1.8ex] 
                     \multicolumn{4}{l}{\textit{Interaction with Gender:}} \\
                     \hline \\[-1.8ex] 
-                    treatment & 0.324$^{*}$ & 0.050 & 3.506$^{**}$ \\ 
-                    & (0.181) & (0.033) & (1.480) \\ 
-                    & & & \\ 
-                    female\_baseline & $-$0.800$^{***}$ & $-$0.184$^{***}$ & $-$3.937$^{**}$ \\ 
-                    & (0.178) & (0.031) & (1.719) \\ 
-                    & & & \\ 
                     treatment:female\_baseline & $-$0.064 & 0.001 & $-$3.980$^{**}$ \\ 
                     & (0.218) & (0.040) & (2.007) \\ 
                     & & & \\ 
@@ -186,12 +175,6 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     \hline \\[-1.8ex] 
                     \multicolumn{4}{l}{\textit{Interaction with BMI:}} \\
                     \hline \\[-1.8ex] 
-                    treatment & 0.444$^{**}$ & 0.065$^{*}$ & $-$0.088 \\ 
-                    & (0.174) & (0.034) & (1.322) \\ 
-                    & & & \\ 
-                    BMI & $-$0.001 & 0.0001 & $-$0.012 \\ 
-                    & (0.003) & (0.0005) & (0.008) \\ 
-                    & & & \\ 
                     treatment:BMI & $-$0.006 & $-$0.001 & 0.075$^{*}$ \\ 
                     & (0.005) & (0.001) & (0.039) \\ 
                     & & & \\ 
@@ -208,58 +191,50 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     variables and interaction coefficients are highlighted with 
                     red rectangles.
                 
-                \item[(ii)] \textbf{Significant interaction terms at the 10\% 
-                    level:}
-                
-                Two regressions have significant or marginally significant 
-                interaction terms:
-                
-                \textbf{1. Total hours worked × Gender 
-                (treatment:female\_baseline):} The interaction coefficient is 
-                $-3.98$ with a $p$-value of 0.047 (significant at the 5\% 
-                level).
+                \item[(ii)] Two regressions have significant or marginally 
+                    significant interaction terms, 1) total hours worked by 
+                    gender and 2) total hours worked by BMI. For total hours
+                    worked by gender, the interaction coefficient is $-3.98$ 
+                    with a $p$-value of 0.047 (significant at the 5\% level).
+                    This could mean that, for males (female\_baseline = 0), 
+                    the deworming treatment increased hours worked by 3.51 
+                    hours per week ($p = 0.018$, statistically significant). 
+                    However, for females, the differential effect is $-3.98$ 
+                    hours, making the total effect for females approximately 
+                    $3.51 - 3.98 = -0.47$ hours. This indicates that the 
+                    positive labor supply effect of deworming was concentrated 
+                    among males, while females experienced no significant 
+                    change in hours worked. This differential effect could 
+                    reflect gender differences in labor market participation, 
+                    household responsibilities, or the types of work 
+                    opportunities available to men versus women in this 
+                    context.
 
-                \textbf{Interpretation:} For males (female\_baseline = 0), 
-                the deworming treatment increased hours worked by 3.51 hours 
-                per week ($p = 0.018$, statistically significant). However, 
-                for females, the differential effect is $-3.98$ hours, making 
-                the total effect for females approximately $3.51 - 3.98 = 
-                -0.47$ hours (essentially zero). This indicates that the 
-                positive labor supply effect of deworming was concentrated 
-                among males, while females experienced no significant change 
-                in hours worked. This differential effect could reflect 
-                gender differences in labor market participation, household 
-                responsibilities, or the types of work opportunities 
-                available to men versus women in this context.
+                    For total hours worked by BMI, the interaction coefficient 
+                    is $0.075$ with a $p$-value of 0.054 (marginally 
+                    significant at the 10\% level). This positive interaction 
+                    term suggests that children with higher BMI at baseline 
+                    experienced larger increases in hours worked from the 
+                    deworming treatment. Specifically, for each one-unit 
+                    increase in baseline BMI, the treatment effect on hours 
+                    worked increased by approximately 0.075 hours per week. At 
+                    the mean BMI level, the treatment effect would be close to 
+                    zero (given the main effect of $-0.088$), but for children 
+                    with BMI one standard deviation above the mean, the positive 
+                    interaction effect would result in a positive net treatment 
+                    effect. This finding is somewhat counterintuitive since we 
+                    might expect children with lower BMI (who were less healthy) 
+                    to benefit more. However, it could suggest that healthier 
+                    children were better positioned to translate improved health 
+                    from deworming into increased labor supply, perhaps because 
+                    they had more energy reserves or faced fewer other health 
+                    constraints that would limit their ability to work more 
+                    hours.
                 
-                \textbf{2. Total hours worked × BMI (treatment:BMI):} The 
-                interaction coefficient is $0.075$ with a $p$-value of 0.054 
-                (marginally significant at the 10\% level).
-                
-                \textbf{Interpretation:} This positive interaction term 
-                suggests that children with higher BMI at baseline 
-                experienced larger increases in hours worked from the 
-                deworming treatment. Specifically, for each one-unit increase 
-                in baseline BMI, the treatment effect on hours worked 
-                increased by approximately 0.075 hours per week. At the mean 
-                BMI level, the treatment effect would be close to zero 
-                (given the main effect of $-0.088$), but for children with 
-                BMI one standard deviation above the mean, the positive 
-                interaction effect would result in a positive net treatment 
-                effect. This finding is somewhat counterintuitive since we 
-                might expect children with lower BMI (who were less healthy) 
-                to benefit more. However, it could suggest that healthier 
-                children were better positioned to translate improved health 
-                from deworming into increased labor supply, perhaps because 
-                they had more energy reserves or faced fewer other health 
-                constraints that would limit their ability to work more hours.
-                
-                \textbf{Other interactions:} None of the other interaction 
-                terms were statistically significant at the 10\% level. The 
-                interactions for total years enrolled and passed primary exam 
-                with both gender and BMI showed no evidence of differential 
-                treatment effects, indicating that the educational benefits 
-                of deworming were similar across these demographic groups.
+                    None of the other interaction terms were statistically 
+                    significant at the 10\% level, indicating that the 
+                    benefits of deworming were similar across these other 
+                    demographic groups.
             \end{itemize}
         \end{itemize}
 
