@@ -82,12 +82,6 @@ total_murders ~ famine + educat + trad_relig
 
 ```{r include=FALSE}
 deworming <- read.csv('/Users/zachary/Documents/GitHub/econ172/pset3/data/q2.csv')
-```
-
-### Question 2a(i): Estimate treatment effects on five dependent variables
-
-```{r ai}
-# Define control variables
 controls <- "saturation_dm + demeaned_popT_6k + zoneidI2 + zoneidI3 + zoneidI4 + 
              zoneidI5 + zoneidI6 + zoneidI7 + zoneidI8 + pup_pop + 
              month_interviewI2 + month_interviewI3 + month_interviewI4 + 
@@ -96,104 +90,113 @@ controls <- "saturation_dm + demeaned_popT_6k + zoneidI2 + zoneidI3 + zoneidI4 +
              month_interviewI11 + month_interviewI12 + cost_sharing + 
              std98_base_I2 + std98_base_I3 + std98_base_I4 + std98_base_I5 + 
              std98_base_I6 + female_baseline + avgtest96"
-
-# Regression 1: Total years enrolled
-model1 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("totyrs_enrolled ~ treatment +", controls)),
-                     cluster = "psdpsch98",
-                     weights = deworming$weight)
-summary(model1)
 ```
 
-```{r aii}
-# Regression 2: Passed primary exam
-model2 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("passed_primary_exam ~ treatment +", controls)),
-                     cluster = "psdpsch98",
-                     weights = deworming$weight)
-summary(model2)
+Use R to estimate regressions in the format of the following. Simply use 
+summary to report the results in this question. To receive full credits, please 
+highlight the names of dependent variables and estimated coefficients of 
+treatment with red rectangles. You could do this by annotating the pdf document 
+compiled from .rmd or exported from Microsoft Word. 
+
+name_dep_var = treatment + name_control_vars, with “weight” as the sampling
+weight and “psdpsch98” as the cluster ID
+
+```{r ai-totyrs_enrolled}
+model <- lm.cluster(data = deworming, 
+                    formula = as.formula(paste("totyrs_enrolled ~ treatment +", controls)), 
+                    cluster = "psdpsch98", 
+                    weights = deworming$weight)
+summary(model)
 ```
 
-```{r aiii}
-# Regression 3: Number of meals yesterday
-model3 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("num_meals_yesterday ~ treatment +", controls)),
-                     cluster = "psdpsch98",
-                     weights = deworming$weight)
-summary(model3)
+```{r ai-passed_primary_exam}
+model <- lm.cluster(data = deworming, 
+                    formula = as.formula(paste("passed_primary_exam ~ treatment +", controls)),
+                    cluster = "psdpsch98",
+                    weights = deworming$weight)
+summary(model)
 ```
 
-```{r aiv}
+```{r ai-num_meals_yesterday}
+model <- lm.cluster(data = deworming, 
+                    formula = as.formula(paste("num_meals_yesterday ~ treatment +", controls)),
+                    cluster = "psdpsch98",
+                    weights = deworming$weight)
+summary(model)
+```
+
+```{r ai-total_hours}
 # Regression 4: Total hours worked
-model4 <- lm.cluster(data = deworming, 
+model <- lm.cluster(data = deworming, 
                      formula = as.formula(paste("total_hours ~ treatment +", controls)),
                      cluster = "psdpsch98",
                      weights = deworming$weight)
-summary(model4)
+summary(model)
 ```
 
-```{r av}
-# Regression 5: Log employment salary
-model5 <- lm.cluster(data = deworming, 
+```{r ai-ln_emp_salary_total}
+model <- lm.cluster(data = deworming, 
                      formula = as.formula(paste("ln_emp_salary_total ~ treatment +", controls)),
                      cluster = "psdpsch98",
                      weights = deworming$weight)
-summary(model5)
+summary(model)
 ```
 
-### Question 2b(i): Differential treatment effects by gender and BMI
+Deworming benefits might be stronger for certain groups — for instance, girls 
+(perhaps because they were more likely to be infected) or children with lower 
+BMI at baseline (because they were less healthy initially).
 
-```{r bi_gender}
-# Interaction with gender for total years enrolled
-model6 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("totyrs_enrolled ~ treatment*female_baseline +", controls)),
+Please estimate whether the deworming treatment had a differential impact on
+totyrs_enrolled, passed_primary_exam, and total_hours by gender
+(female_baseline) and then by BMI (BMI). To receive full credits, please
+highlight the names of dependent variables and estimated coefficients of
+interactive terms with red rectangles.
+
+```{r bi-totyrs_enrolled-gender}
+model <- lm.cluster(data = deworming, 
+                    formula = as.formula(paste("totyrs_enrolled ~ treatment * female_baseline +", controls)),
+                    cluster = "psdpsch98",
+                    weights = deworming$weight)
+summary(model)
+```
+
+```{r bi-passed_primary_exam-gender}
+model <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("passed_primary_exam ~ treatment * female_baseline +", controls)),
                      cluster = "psdpsch98",
                      weights = deworming$weight)
-summary(model6)
+summary(model)
 ```
 
-```{r bii_gender}
-# Interaction with gender for passed primary exam
-model7 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("passed_primary_exam ~ treatment*female_baseline +", controls)),
+```{r bi-total_hours-gender}
+model <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("total_hours ~ treatment * female_baseline +", controls)),
                      cluster = "psdpsch98",
                      weights = deworming$weight)
-summary(model7)
+summary(model)
 ```
 
-```{r biii_gender}
-# Interaction with gender for total hours
-model8 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("total_hours ~ treatment*female_baseline +", controls)),
-                     cluster = "psdpsch98",
-                     weights = deworming$weight)
-summary(model8)
+```{r bi-totyrs_enrolled-BMI}
+model <- lm.cluster(data = deworming, 
+                    formula = as.formula(paste("totyrs_enrolled ~ treatment * BMI +", controls)),
+                    cluster = "psdpsch98",
+                    weights = deworming$weight)
+summary(model)
 ```
 
-```{r bi_bmi}
-# Interaction with BMI for total years enrolled
-model9 <- lm.cluster(data = deworming, 
-                     formula = as.formula(paste("totyrs_enrolled ~ treatment*BMI +", controls)),
-                     cluster = "psdpsch98",
-                     weights = deworming$weight)
-summary(model9)
-```
-
-```{r bii_bmi}
-# Interaction with BMI for passed primary exam
-model10 <- lm.cluster(data = deworming, 
-                      formula = as.formula(paste("passed_primary_exam ~ treatment*BMI +", controls)),
+```{r bi-passed_primary-exam-BMI}
+model <- lm.cluster(data = deworming, 
+                      formula = as.formula(paste("passed_primary_exam ~ treatment * BMI +", controls)),
                       cluster = "psdpsch98",
                       weights = deworming$weight)
-summary(model10)
+summary(model)
 ```
 
-```{r biii_bmi}
-# Interaction with BMI for total hours
-model11 <- lm.cluster(data = deworming, 
-                      formula = as.formula(paste("total_hours ~ treatment*BMI +", controls)),
+```{r bi-total_hours-BMI}
+model <- lm.cluster(data = deworming, 
+                      formula = as.formula(paste("total_hours ~ treatment * BMI +", controls)),
                       cluster = "psdpsch98",
                       weights = deworming$weight)
-summary(model11)
+summary(model)
 ```
 
