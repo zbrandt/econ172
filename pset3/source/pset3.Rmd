@@ -92,6 +92,11 @@ controls <- "saturation_dm + demeaned_popT_6k + zoneidI2 + zoneidI3 + zoneidI4 +
              std98_base_I6 + female_baseline + avgtest96"
 ```
 
+```{r include=FALSE, message=FALSE}
+library(stargazer)
+library(multiwayvcov)
+```
+
 Use R to estimate regressions in the format of the following. Simply use 
 summary to report the results in this question. To receive full credits, please 
 highlight the names of dependent variables and estimated coefficients of 
@@ -140,6 +145,45 @@ model <- lm.cluster(data = deworming,
                      cluster = "psdpsch98",
                      weights = deworming$weight)
 summary(model)
+```
+
+```{r stargazer-ai, results='hide', include=FALSE}
+# Stargazer tables for question a.i with clustered standard errors
+library(stargazer)
+library(multiwayvcov)
+
+# Run all five regressions using standard lm with weights
+m1 <- lm(as.formula(paste("totyrs_enrolled ~ treatment +", controls)), 
+         data = deworming, weights = weight)
+m2 <- lm(as.formula(paste("passed_primary_exam ~ treatment +", controls)), 
+         data = deworming, weights = weight)
+m3 <- lm(as.formula(paste("num_meals_yesterday ~ treatment +", controls)), 
+         data = deworming, weights = weight)
+m4 <- lm(as.formula(paste("total_hours ~ treatment +", controls)), 
+         data = deworming, weights = weight)
+m5 <- lm(as.formula(paste("ln_emp_salary_total ~ treatment +", controls)), 
+         data = deworming, weights = weight)
+
+# Calculate clustered standard errors for each model
+V1 <- cluster.vcov(m1, deworming$psdpsch98)
+V2 <- cluster.vcov(m2, deworming$psdpsch98)
+V3 <- cluster.vcov(m3, deworming$psdpsch98)
+V4 <- cluster.vcov(m4, deworming$psdpsch98)
+V5 <- cluster.vcov(m5, deworming$psdpsch98)
+
+cl_se1 <- sqrt(diag(V1))
+cl_se2 <- sqrt(diag(V2))
+cl_se3 <- sqrt(diag(V3))
+cl_se4 <- sqrt(diag(V4))
+cl_se5 <- sqrt(diag(V5))
+
+# Generate stargazer table
+stargazer(m1, m2, m3, m4, m5,
+          se = list(cl_se1, cl_se2, cl_se3, cl_se4, cl_se5),
+          type = "latex",
+          keep.stat = c("n", "rsq"),
+          keep = c("treatment")
+          )
 ```
 
 Deworming benefits might be stronger for certain groups — for instance, girls 
@@ -198,5 +242,67 @@ model <- lm.cluster(data = deworming,
                       cluster = "psdpsch98",
                       weights = deworming$weight)
 summary(model)
+```
+
+```{r stargazer-bi-gender, results='hide', include=FALSE}
+# Stargazer tables for question b.i - Gender interactions
+library(stargazer)
+library(multiwayvcov)
+
+# Run gender interaction regressions using standard lm with weights
+m1_gender <- lm(as.formula(paste("totyrs_enrolled ~ treatment * female_baseline +", controls)),
+                data = deworming, weights = weight)
+m2_gender <- lm(as.formula(paste("passed_primary_exam ~ treatment * female_baseline +", controls)),
+                data = deworming, weights = weight)
+m3_gender <- lm(as.formula(paste("total_hours ~ treatment * female_baseline +", controls)),
+                data = deworming, weights = weight)
+
+# Calculate clustered standard errors
+V1_gender <- cluster.vcov(m1_gender, deworming$psdpsch98)
+V2_gender <- cluster.vcov(m2_gender, deworming$psdpsch98)
+V3_gender <- cluster.vcov(m3_gender, deworming$psdpsch98)
+
+cl_se1_gender <- sqrt(diag(V1_gender))
+cl_se2_gender <- sqrt(diag(V2_gender))
+cl_se3_gender <- sqrt(diag(V3_gender))
+
+# Generate stargazer table
+stargazer(m1_gender, m2_gender, m3_gender,
+          se = list(cl_se1_gender, cl_se2_gender, cl_se3_gender),
+          type = "latex",
+          keep.stat = c("n", "rsq"),
+          keep = c("treatment", "female_baseline", "treatment:female_baseline")
+          )
+```
+
+```{r stargazer-bi-BMI, results='hide', include=FALSE}
+# Stargazer tables for question b.i - BMI interactions
+library(stargazer)
+library(multiwayvcov)
+
+# Run BMI interaction regressions using standard lm with weights
+m1_bmi <- lm(as.formula(paste("totyrs_enrolled ~ treatment * BMI +", controls)),
+             data = deworming, weights = weight)
+m2_bmi <- lm(as.formula(paste("passed_primary_exam ~ treatment * BMI +", controls)),
+             data = deworming, weights = weight)
+m3_bmi <- lm(as.formula(paste("total_hours ~ treatment * BMI +", controls)),
+             data = deworming, weights = weight)
+
+# Calculate clustered standard errors
+V1_bmi <- cluster.vcov(m1_bmi, deworming$psdpsch98)
+V2_bmi <- cluster.vcov(m2_bmi, deworming$psdpsch98)
+V3_bmi <- cluster.vcov(m3_bmi, deworming$psdpsch98)
+
+cl_se1_bmi <- sqrt(diag(V1_bmi))
+cl_se2_bmi <- sqrt(diag(V2_bmi))
+cl_se3_bmi <- sqrt(diag(V3_bmi))
+
+# Generate stargazer table
+stargazer(m1_bmi, m2_bmi, m3_bmi,
+          se = list(cl_se1_bmi, cl_se2_bmi, cl_se3_bmi),
+          type = "latex",
+          keep.stat = c("n", "rsq"),
+          keep = c("treatment", "BMI", "treatment:BMI")
+          )
 ```
 

@@ -94,57 +94,33 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     includes all control variables. Standard errors are 
                     clustered at the school level (psdpsch98), and 
                     observations are weighted using the sampling weight.
+                    Below is a summary table showing the estimated treatment 
+                    effects for each dependent variable.
                     
-                    \textbf{Regression Results:}
-                    
-                    \textbf{(1) Total years enrolled in school 
-                    (totyrs\_enrolled):}
-                    \begin{itemize}
-                        \item Treatment coefficient: $\hat{\beta}_1 = 0.293$ 
-                            (SE = 0.145)
-                        \item $t$-value = 2.026, $p$-value = 0.043
-                        \item $R^2 = 0.293$
-                    \end{itemize}
-                    
-                    \textbf{(2) Passed primary school entrance exam 
-                    (passed\_primary\_exam):}
-                    \begin{itemize}
-                        \item Treatment coefficient: $\hat{\beta}_1 = 0.051$ 
-                            (SE = 0.031)
-                        \item $t$-value = 1.641, $p$-value = 0.101
-                        \item $R^2 = 0.070$
-                    \end{itemize}
-                    
-                    \textbf{(3) Number of meals eaten yesterday 
-                    (num\_meals\_yesterday):}
-                    \begin{itemize}
-                        \item Treatment coefficient: $\hat{\beta}_1 = 0.095$ 
-                            (SE = 0.029)
-                        \item $t$-value = 3.337, $p$-value = 0.001
-                        \item $R^2 = 0.034$
-                    \end{itemize}
-                    
-                    \textbf{(4) Total hours worked (total\_hours):}
-                    \begin{itemize}
-                        \item Treatment coefficient: $\hat{\beta}_1 = 1.599$ 
-                            (SE = 1.036)
-                        \item $t$-value = 1.543, $p$-value = 0.123
-                        \item $R^2 = 0.059$
-                    \end{itemize}
-                    
-                    \textbf{(5) Log employment salary 
-                    (ln\_emp\_salary\_total):}
-                    \begin{itemize}
-                        \item Treatment coefficient: $\hat{\beta}_1 = 0.265$ 
-                            (SE = 0.085)
-                        \item $t$-value = 3.105, $p$-value = 0.002
-                        \item $R^2 = 0.189$
-                    \end{itemize}
+                    \begin{table}[!htbp] \centering \color{blue}
+                    \begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+                    \\[-1.8ex]\hline 
+                    \hline \\[-1.8ex] 
+                    & \multicolumn{5}{c}{\textit{Dependent variable:}} \\ 
+                    \cline{2-6} 
+                    \\[-1.8ex] & (1) & (2) & (3) & (4) & (5)\\ 
+                    \hline \\[-1.8ex] 
+                    treatment & 0.293$^{**}$ & 0.051 & 0.095$^{***}$ & 1.599 & 0.265$^{***}$ \\ 
+                    & (0.145) & (0.031) & (0.029) & (1.036) & (0.085) \\ 
+                    & & & & & \\ 
+                    \hline \\[-1.8ex] 
+                    Observations & 5,037 & 4,974 & 5,083 & 5,084 & 710 \\ 
+                    R$^{2}$ & 0.293 & 0.070 & 0.034 & 0.059 & 0.189 \\ 
+                    \hline 
+                    \hline \\[-1.8ex] 
+                    \textit{Note:}  & \multicolumn{5}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+                    \end{tabular} 
+                    \end{table} 
                     
                     The full regression output with all control variables is 
-                    included in the attached RMarkdown output (pset3.pdf in 
-                    the source folder). The dependent variables and treatment 
-                    coefficients are highlighted with red rectangles.
+                    included in the attached RMarkdown output. The dependent 
+                    variables and treatment coefficients are highlighted with 
+                    red rectangles.
                 
                 \item[(ii)] \textbf{Interpretation of treatment effects:}
                 
@@ -182,69 +158,55 @@ as the sampling weight and "psdpsch98" as the cluster ID
                     \]
                     where $Z_i$ is either female\_baseline or BMI, and 
                     $\beta_3$ is the interaction coefficient of interest.
-                    
-                    \textbf{Gender Interaction Results 
-                    (treatment $\times$ female\_baseline):}
-                    
-                    \textbf{(1) Total years enrolled (totyrs\_enrolled):}
-                    \begin{itemize}
-                        \item Main treatment effect: $\hat{\beta}_1 = 0.324$ 
-                            (SE = 0.181), $p = 0.073$
-                        \item Interaction term: $\hat{\beta}_3 = -0.064$ 
-                            (SE = 0.218), $p = 0.768$
-                        \item $R^2 = 0.293$
-                    \end{itemize}
-                    
-                    \textbf{(2) Passed primary exam (passed\_primary\_exam):}
-                    \begin{itemize}
-                        \item Main treatment effect: $\hat{\beta}_1 = 0.050$ 
-                            (SE = 0.033), $p = 0.133$
-                        \item Interaction term: $\hat{\beta}_3 = 0.001$ 
-                            (SE = 0.040), $p = 0.976$
-                        \item $R^2 = 0.070$
-                    \end{itemize}
-                    
-                    \textbf{(3) Total hours worked (total\_hours):}
-                    \begin{itemize}
-                        \item Main treatment effect: $\hat{\beta}_1 = 3.506$ 
-                            (SE = 1.480), $p = 0.018$
-                        \item Interaction term: $\hat{\beta}_3 = -3.980$ 
-                            (SE = 2.007), $p = 0.047$
-                        \item $R^2 = 0.061$
-                    \end{itemize}
-                    
-                    \textbf{BMI Interaction Results (treatment $\times$ BMI):}
-                    
-                    \textbf{(4) Total years enrolled (totyrs\_enrolled):}
-                    \begin{itemize}
-                        \item Main treatment effect: $\hat{\beta}_1 = 0.444$ 
-                            (SE = 0.174), $p = 0.011$
-                        \item Interaction term: $\hat{\beta}_3 = -0.006$ 
-                            (SE = 0.005), $p = 0.197$
-                        \item $R^2 = 0.294$
-                    \end{itemize}
-                    
-                    \textbf{(5) Passed primary exam (passed\_primary\_exam):}
-                    \begin{itemize}
-                        \item Main treatment effect: $\hat{\beta}_1 = 0.065$ 
-                            (SE = 0.034), $p = 0.057$
-                        \item Interaction term: $\hat{\beta}_3 = -0.001$ 
-                            (SE = 0.001), $p = 0.316$
-                        \item $R^2 = 0.071$
-                    \end{itemize}
-                    
-                    \textbf{(6) Total hours worked (total\_hours):}
-                    \begin{itemize}
-                        \item Main treatment effect: $\hat{\beta}_1 = -0.088$ 
-                            (SE = 1.322), $p = 0.947$
-                        \item Interaction term: $\hat{\beta}_3 = 0.075$ 
-                            (SE = 0.039), $p = 0.054$
-                        \item $R^2 = 0.060$
-                    \end{itemize}
-                    
+                    Below is a summary table showing the estimated treatment 
+                    effects for each dependent variable.
+                    \pagebreak
+                    \begin{table}[!htbp] \centering \color{blue}
+                    \begin{tabular}{@{\extracolsep{5pt}}lccc} 
+                    \\[-1.8ex]\hline 
+                    \hline \\[-1.8ex] 
+                    & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+                    \cline{2-4} 
+                    % \\[-1.8ex] & totyrs\_enrolled & passed\_primary\_exam & total\_hours\\ 
+                    \\[-1.8ex] & (1) & (2) & (3)\\ 
+                    \hline \\[-1.8ex] 
+                    \multicolumn{4}{l}{\textit{Interaction with Gender:}} \\
+                    \hline \\[-1.8ex] 
+                    treatment & 0.324$^{*}$ & 0.050 & 3.506$^{**}$ \\ 
+                    & (0.181) & (0.033) & (1.480) \\ 
+                    & & & \\ 
+                    female\_baseline & $-$0.800$^{***}$ & $-$0.184$^{***}$ & $-$3.937$^{**}$ \\ 
+                    & (0.178) & (0.031) & (1.719) \\ 
+                    & & & \\ 
+                    treatment:female\_baseline & $-$0.064 & 0.001 & $-$3.980$^{**}$ \\ 
+                    & (0.218) & (0.040) & (2.007) \\ 
+                    & & & \\ 
+                    Observations & 5,037 & 4,974 & 5,084 \\ 
+                    R$^{2}$ & 0.293 & 0.070 & 0.061 \\ 
+                    \hline \\[-1.8ex] 
+                    \multicolumn{4}{l}{\textit{Interaction with BMI:}} \\
+                    \hline \\[-1.8ex] 
+                    treatment & 0.444$^{**}$ & 0.065$^{*}$ & $-$0.088 \\ 
+                    & (0.174) & (0.034) & (1.322) \\ 
+                    & & & \\ 
+                    BMI & $-$0.001 & 0.0001 & $-$0.012 \\ 
+                    & (0.003) & (0.0005) & (0.008) \\ 
+                    & & & \\ 
+                    treatment:BMI & $-$0.006 & $-$0.001 & 0.075$^{*}$ \\ 
+                    & (0.005) & (0.001) & (0.039) \\ 
+                    & & & \\ 
+                    Observations & 5,017 & 4,955 & 5,064 \\ 
+                    R$^{2}$ & 0.294 & 0.071 & 0.060 \\ 
+                    \hline 
+                    \hline \\[-1.8ex] 
+                    \multicolumn{4}{l}{\textit{Note:} $^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+                    \end{tabular} 
+                    \end{table}
+
                     The full regression output with all control variables is 
-                    included in the attached RMarkdown output. The interaction 
-                    coefficients are highlighted with red rectangles.
+                    included in the attached RMarkdown output. The dependent 
+                    variables and interaction coefficients are highlighted with 
+                    red rectangles.
                 
                 \item[(ii)] \textbf{Significant interaction terms at the 10\% 
                     level:}
@@ -255,8 +217,8 @@ as the sampling weight and "psdpsch98" as the cluster ID
                 \textbf{1. Total hours worked × Gender 
                 (treatment:female\_baseline):} The interaction coefficient is 
                 $-3.98$ with a $p$-value of 0.047 (significant at the 5\% 
-                level). 
-                
+                level).
+
                 \textbf{Interpretation:} For males (female\_baseline = 0), 
                 the deworming treatment increased hours worked by 3.51 hours 
                 per week ($p = 0.018$, statistically significant). However, 
