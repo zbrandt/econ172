@@ -1,0 +1,199 @@
+---
+title: "Problem Set 3"
+author: "Zachary Brandt"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Weather and Witch Killing
+
+```{r include=FALSE}
+killing <- read.csv('/Users/zachary/Documents/GitHub/econ172/pset3/data/q1.csv')
+```
+
+Construct a new variable for the total number of murders in a village-year 
+(witch + non-witch murders).
+
+```{r a}
+killing$total_murders <- killing$witch_murders + killing$oth_murders
+```
+
+Create a table of summary statistics for all variables in the dataset, 
+including the mean, standard deviation, minimum, maximum, and number of 
+observations, using stargazer, summary or describe commands in R. Discuss any 
+noteworthy patterns. Pay particular attention to the murder and rainfall 
+variables.
+
+```{r b}
+summary(killing)
+```
+
+Now consider the effect of extreme weather on murders in the village.
+
+Install “miceadds” and “sandwich”. Using the lm.cluster command, regress total
+murders (in a village in a particular year) on the indicator for whether a 
+drought or flood occurred in that year. Make sure that error terms should be 
+allowed to be correlated ("clustered") across years for the same village (use 
+vid). Simply use summary to report the results in this question.
+[Note: Results estimated by lm.cluster could not be exported directly with
+stargazer so we use summary for simplicity. In the section we will teach how to
+export clustered regression results in a neater way.]
+
+```{r ci, message=FALSE}
+library(miceadds)
+library(sandwich)
+model <- lm.cluster(data = killing, total_murders ~ any_rain, cluster = "vid")
+summary(model)
+```
+
+In a second regression, add average years of schooling and proportion of 
+households practicing traditional religions as additional explanatory variables.
+
+```{r cii}
+model <- lm.cluster(data = killing, total_murders ~ any_rain + educat + 
+                      trad_relig, cluster = "vid")
+summary(model)
+```
+
+Finally, consider a possible instrumental variables (IV) approach. Economic 
+theory suggests that extreme economic hardship-such as a famine-may be 
+associated with more violence, including murders. Famine may be caused by 
+extreme rainfall (which would be the instrumental variable).
+
+Write out the first stage regression, the second stage regression, and the 
+reduced form regression.
+
+```{r d, eval=FALSE}
+# First stage regression
+any_rain ~ famine
+
+# Second stage regression
+total_murders ~ any_rain + educat + trad_relig
+
+# Reduced form regression
+total_murders ~ famine + educat + trad_relig
+```
+
+## The Primary School Deworming Project (PSDP)
+
+```{r include=FALSE}
+deworming <- read.csv('/Users/zachary/Documents/GitHub/econ172/pset3/data/q2.csv')
+```
+
+### Question 2a(i): Estimate treatment effects on five dependent variables
+
+```{r ai}
+# Define control variables
+controls <- "saturation_dm + demeaned_popT_6k + zoneidI2 + zoneidI3 + zoneidI4 + 
+             zoneidI5 + zoneidI6 + zoneidI7 + zoneidI8 + pup_pop + 
+             month_interviewI2 + month_interviewI3 + month_interviewI4 + 
+             month_interviewI5 + month_interviewI6 + month_interviewI7 + 
+             month_interviewI8 + month_interviewI9 + month_interviewI10 + 
+             month_interviewI11 + month_interviewI12 + cost_sharing + 
+             std98_base_I2 + std98_base_I3 + std98_base_I4 + std98_base_I5 + 
+             std98_base_I6 + female_baseline + avgtest96"
+
+# Regression 1: Total years enrolled
+model1 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("totyrs_enrolled ~ treatment +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model1)
+```
+
+```{r aii}
+# Regression 2: Passed primary exam
+model2 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("passed_primary_exam ~ treatment +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model2)
+```
+
+```{r aiii}
+# Regression 3: Number of meals yesterday
+model3 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("num_meals_yesterday ~ treatment +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model3)
+```
+
+```{r aiv}
+# Regression 4: Total hours worked
+model4 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("total_hours ~ treatment +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model4)
+```
+
+```{r av}
+# Regression 5: Log employment salary
+model5 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("ln_emp_salary_total ~ treatment +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model5)
+```
+
+### Question 2b(i): Differential treatment effects by gender and BMI
+
+```{r bi_gender}
+# Interaction with gender for total years enrolled
+model6 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("totyrs_enrolled ~ treatment*female_baseline +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model6)
+```
+
+```{r bii_gender}
+# Interaction with gender for passed primary exam
+model7 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("passed_primary_exam ~ treatment*female_baseline +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model7)
+```
+
+```{r biii_gender}
+# Interaction with gender for total hours
+model8 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("total_hours ~ treatment*female_baseline +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model8)
+```
+
+```{r bi_bmi}
+# Interaction with BMI for total years enrolled
+model9 <- lm.cluster(data = deworming, 
+                     formula = as.formula(paste("totyrs_enrolled ~ treatment*BMI +", controls)),
+                     cluster = "psdpsch98",
+                     weights = deworming$weight)
+summary(model9)
+```
+
+```{r bii_bmi}
+# Interaction with BMI for passed primary exam
+model10 <- lm.cluster(data = deworming, 
+                      formula = as.formula(paste("passed_primary_exam ~ treatment*BMI +", controls)),
+                      cluster = "psdpsch98",
+                      weights = deworming$weight)
+summary(model10)
+```
+
+```{r biii_bmi}
+# Interaction with BMI for total hours
+model11 <- lm.cluster(data = deworming, 
+                      formula = as.formula(paste("total_hours ~ treatment*BMI +", controls)),
+                      cluster = "psdpsch98",
+                      weights = deworming$weight)
+summary(model11)
+```
+

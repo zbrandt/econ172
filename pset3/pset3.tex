@@ -11,8 +11,35 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{parskip}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \usetikzlibrary{automata,positioning}
+
+% Listings configuration for R markdown style
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+\lstset{
+    language=R,
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    stringstyle=\color{codepurple},
+    breaklines=true,
+    breakatwhitespace=true,
+    showstringspaces=false,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{black!30},
+    numbers=none,
+    xleftmargin=0.5cm,
+    xrightmargin=0.5cm,
+    aboveskip=1em,
+    belowskip=1em
+}
 
 %
 % Basic Document Settings

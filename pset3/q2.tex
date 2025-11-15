@@ -1,3 +1,198 @@
 \begin{homeworkProblem}{The Primary School Deworming Project (PSDP)}
     
+    For this assignment, we will analyze the dataset used in the paper titled 
+    ``Worms at Work: Long-Run Impacts of a Child Health Investment.''
+
+    Please download the dataset ``pset3-2025-deworming.csv'' from bCourses.
+
+    In this question, you will estimate the treatment effects of deworming for 
+    the following dependent variables:
+
+    \begin{enumerate}
+        \item Total years enrolled in school, 1998--2007 (\texttt{totyrs\_enrolled})
+        \item Indicator for passed secondary school entrance exam 
+            (\texttt{passed\_primary\_exam})
+        \item Number of meals eaten yesterday (\texttt{num\_meals\_yesterday})
+        \item Total hours worked in wages/self-employment/agriculture, last 7 days 
+            (\texttt{total\_hours})
+        \item Wages for total cash salary/food in kind, last month 
+            (\texttt{ln\_emp\_salary\_total})
+    \end{enumerate}
+
+    The treatment variable varies at the school level and is called 
+    \texttt{treatment}.
+
+    The authors also include the following control variables:
+    \begin{verbatim}
+saturation_dm+demeaned_popT_6k+zoneidI2+zoneidI3+zoneidI4+zoneidI5+zoneidI6+z
+oneidI7+zoneidI8+pup_pop+month_interviewI2+month_interviewI3+month_inte
+rviewI4+month_interviewI5+month_interviewI6+month_interviewI7+month_interview
+I8+month_interviewI9+month_interviewI10+month_interviewI11+month_interviewI12
++cost_sharing+std98_base_I2+std98_base_I3+std98_base_I4+std98_base_I5+std98_b
+ase_I6+female_baseline+avgtest96
+    \end{verbatim}
+
+    Use sampling weights \texttt{weight} in your regressions.
+
+    Cluster standard errors at the school level using the variable 
+    \texttt{psdpsch98}.
+
+    \textbf{a)} In this question we use linear regression to estimate the effect 
+    of the deworming treatment on the five dependent variables mentioned above.
+
+    \begin{enumerate}
+        \item[(i)] Use R to estimate regressions in the format of the following. 
+            Simply use \texttt{summary} to report the results in this question. 
+            \textbf{To receive full credits, please highlight the names of 
+            dependent variables and estimated coefficients of \texttt{treatment} 
+            with red rectangles.} You could do this by annotating the pdf 
+            document compiled from .rmd or exported from Microsoft Word.
+
+            \begin{verbatim}
+name_dep_var = treatment + name_control_vars, with "weight" as the sampling 
+weight and "psdpsch98" as the cluster ID
+            \end{verbatim}
+
+        \item[(ii)] Interpret the treatment effect coefficient for the 
+            regressions on total years enrolled and passing the secondary 
+            school exam.
+    \end{enumerate}
+
+    \textbf{b)} Deworming benefits might be stronger for certain groups --- for 
+    instance, girls (perhaps because they were more likely to be infected) or 
+    children with lower BMI at baseline (because they were less healthy 
+    initially).
+
+    \begin{enumerate}
+        \item[(i)] Please estimate whether the deworming treatment had a 
+            differential impact on \texttt{totyrs\_enrolled}, 
+            \texttt{passed\_primary\_exam}, and \texttt{total\_hours} by gender 
+            (\texttt{female\_baseline}) and then by BMI (\texttt{BMI}). 
+            \textbf{To receive full credits, please highlight the names of 
+            dependent variables and estimated coefficients of interactive terms 
+            with red rectangles.}
+        \item[(ii)] Indicate which regressions have a significant interaction 
+            term at the 10\% level. Interpret the coefficient on the interaction 
+            term for these regressions.
+    \end{enumerate}
+
+    \begin{solution}
+        
+        \begin{enumerate}
+            \item \begin{enumerate}
+                \item[(i)] Below are the regression results for the five 
+                    dependent variables using the \texttt{lm.cluster} command.
+
+                    \textit{[See R output in compiled document]}
+
+                    Summary of treatment effect coefficients:
+                    \begin{itemize}
+                        \item \textbf{Total years enrolled:} $\beta = 0.293$ 
+                            (SE = 0.145, p = 0.043**)
+                        \item \textbf{Passed primary exam:} $\beta = 0.051$ 
+                            (SE = 0.031, p = 0.101)
+                        \item \textbf{Number of meals yesterday:} $\beta = 0.095$ 
+                            (SE = 0.029, p = 0.001***)
+                        \item \textbf{Total hours worked:} $\beta = 1.599$ 
+                            (SE = 1.036, p = 0.123)
+                        \item \textbf{Log employment salary:} $\beta = 0.265$ 
+                            (SE = 0.085, p = 0.002***)
+                    \end{itemize}
+                    
+                    Note: * p $<$ 0.10, ** p $<$ 0.05, *** p $<$ 0.01
+
+                \item[(ii)] The treatment effect coefficient for total years 
+                    enrolled is 0.293 (SE = 0.145, p = 0.043), indicating that 
+                    students in schools assigned to the deworming treatment 
+                    were enrolled in school for approximately 0.29 additional 
+                    years (about 3.5 months) compared to students in control 
+                    schools, holding all control variables constant. This 
+                    effect is statistically significant at the 5\% level.
+
+                    The treatment effect coefficient for passing the secondary 
+                    school entrance exam is 0.051 (SE = 0.031, p = 0.101), 
+                    indicating that students in schools assigned to the 
+                    deworming treatment were approximately 5.1 percentage 
+                    points more likely to pass the secondary school entrance 
+                    exam compared to students in control schools, holding all 
+                    control variables constant. However, this effect is not 
+                    statistically significant at the 10\% level (p-value of 
+                    0.101 is just above the 0.10 threshold).
+
+            \end{enumerate}
+
+            \item \begin{enumerate}
+                \item[(i)] Below are the regression results examining 
+                    differential treatment effects by gender and BMI.
+
+                    \textit{[See R output in compiled document]}
+
+                    Summary of interaction term coefficients:
+
+                    \textbf{Gender Interactions (treatment × female\_baseline):}
+                    \begin{itemize}
+                        \item \textbf{Total years enrolled:} $\beta = -0.064$ 
+                            (SE = 0.218, p = 0.768)
+                        \item \textbf{Passed primary exam:} $\beta = 0.001$ 
+                            (SE = 0.040, p = 0.976)
+                        \item \textbf{Total hours worked:} $\beta = -3.980$ 
+                            (SE = 2.007, p = 0.047**)
+                    \end{itemize}
+
+                    \textbf{BMI Interactions (treatment × BMI):}
+                    \begin{itemize}
+                        \item \textbf{Total years enrolled:} $\beta = -0.006$ 
+                            (SE = 0.005, p = 0.197)
+                        \item \textbf{Passed primary exam:} $\beta = -0.001$ 
+                            (SE = 0.001, p = 0.316)
+                        \item \textbf{Total hours worked:} $\beta = 0.075$ 
+                            (SE = 0.039, p = 0.054*)
+                    \end{itemize}
+                    
+                    Note: * p $<$ 0.10, ** p $<$ 0.05, *** p $<$ 0.01
+
+                \item[(ii)] Based on the regression results, the following 
+                    interactions are significant at the 10\% level:
+
+                    \begin{itemize}
+                        \item \textbf{Total hours worked × Female (Model 8):} 
+                            The interaction term is $-3.98$ (SE = 2.01, 
+                            p = 0.047), which is statistically significant at 
+                            the 5\% level. This indicates that the deworming 
+                            treatment had a differential impact on hours worked 
+                            by gender. For males, the treatment increased hours 
+                            worked by 3.51 hours per week, but for females, the 
+                            treatment effect was essentially zero (3.51 - 3.98 
+                            = -0.47 hours). This suggests that males benefited 
+                            more from the treatment in terms of increased labor 
+                            market participation.
+                        
+                        \item \textbf{Total hours worked × BMI (Model 11):} The 
+                            interaction term is 0.075 (SE = 0.039, p = 0.054), 
+                            which is marginally significant at the 10\% level. 
+                            This positive interaction coefficient suggests that 
+                            the treatment effect on hours worked increases with 
+                            BMI. In other words, students with higher BMI at 
+                            baseline (healthier) experienced a larger increase 
+                            in hours worked from the deworming treatment 
+                            compared to students with lower BMI. For each 
+                            one-unit increase in baseline BMI, the treatment 
+                            effect on hours worked increases by 0.075 hours 
+                            per week.
+                    \end{itemize}
+
+                    No other interactions were significant at the 10\% level:
+                    \begin{itemize}
+                        \item Total years enrolled × Female: p = 0.768
+                        \item Passed primary exam × Female: p = 0.976
+                        \item Total years enrolled × BMI: p = 0.197
+                        \item Passed primary exam × BMI: p = 0.316
+                    \end{itemize}
+
+            \end{enumerate}
+                
+        \end{enumerate}
+
+    \end{solution}
+
 \end{homeworkProblem}
